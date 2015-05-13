@@ -1,10 +1,10 @@
-sir:
+myapp:
   build: .
   ports:
     - "80:80"
     - "443:443"
   volumes:
-    - .:/var/www/html/myapp
+    - ..:/var/www/html/myapp
   links:
     - mysql
 
@@ -13,6 +13,5 @@ mysql:
   ports:
     - "3306:3306"
   environment:
-    MYSQL_DATABASE: sir
+    MYSQL_DATABASE: myapp
     MYSQL_ALLOW_EMPTY_PASSWORD: yes
-

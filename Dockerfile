@@ -1,5 +1,5 @@
 #
-# Dockerfile for SiR application
+# Dockerfile for Symfony application development
 #
 # Inspired by Dockerfile Project:
 # https://dockerfile.github.io
@@ -8,6 +8,10 @@
 # Based on docker official ubuntu image
 FROM ubuntu:14.04
 
+
+
+# Define Dockerfile maintainer
+MAINTAINER Oliver THEBAULT <contact@oliver-thebault.com>
 
 
 
@@ -62,10 +66,8 @@ RUN \
 
 
 
-
 # Configure Nginx
 COPY nginx/sites-enabled/default /etc/nginx/sites-enabled/default
-
 
 
 
@@ -74,17 +76,14 @@ VOLUME ["/var/www/html"]
 
 
 
-
 # Expose ports
 EXPOSE 80 443
-
 
 
 
 # Set the script to use as entrypoint for the container
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
 
 
 
