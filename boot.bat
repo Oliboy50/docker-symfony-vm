@@ -10,6 +10,10 @@ REM alias drmi-notag='docker rmi $(docker images -q --filter "dangling=true")'
 set drminotag="echo \"alias drmi-notag='docker rmi \$(docker images -q --filter \"dangling=true\")'\" >> ~/.ashrc"
 boot2docker ssh %drminotag%
 
+REM alias install-docker-compose='docker build -t docker-compose github.com/docker/compose'
+set installdockercompose="echo \"alias install-docker-compose='docker build -t docker-compose github.com/docker/compose'\" >> ~/.ashrc"
+boot2docker ssh %installdockercompose%
+
 REM alias cd-compose='cd /c/Users/path/to/docker/compose/yml'
 set cdtocompose="echo \"alias cd-compose='cd /c/Users/path/to/docker/compose/yml'\" >> ~/.ashrc"
 boot2docker ssh %cdtocompose%
