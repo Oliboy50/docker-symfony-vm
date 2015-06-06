@@ -58,7 +58,7 @@ RUN \
 
 # Install NodeJS/NPM and globally install some dependances (Bower, Gulp, etc.)
 RUN \
-  curl -sL https://deb.nodesource.com/setup_0.12 | bash - && \
+  curl -sL https://deb.nodesource.com/setup | bash - && \
   apt-get install -y nodejs && \
   npm install -g npm && \
   npm install -g bower gulp grunt-cli
@@ -70,13 +70,18 @@ COPY nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 
 
 
+# Expose ports
+EXPOSE 80 443
+
+
+
 # Define mountable directories
 VOLUME ["/var/www/html"]
 
 
 
-# Expose ports
-EXPOSE 80 443
+# Define default working directory
+WORKDIR /var/www/html
 
 
 
