@@ -23,6 +23,9 @@ It's also used to set some useful aliases in the VM (such as`docker-compose` whi
  - Ruby and Python (could be needed to use some dependencies)
  - NodeJS 0.12 with `bower`, `gulp` and `grunt`
 
+### docker-entrypoint.sh
+This file is the default ENTRYPOINT of the image. It will be executed each time you run this container. This is where you should put all your project specific stuffs that could help you building a perfect Symfony application (e.g. run services, run a Makefile, etc.).
+
 ### docker-compose.yml
 This file (using Docker-compose) will help you to build a perfect environment for your Symfony app by running and linking several containers the way you want using a single command. 
 Keep in mind that this could also be done using many long `docker` commands without the need of `docker-compose` at all.
