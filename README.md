@@ -1,14 +1,22 @@
-Docker - Symfony / Nginx
+Docker - Symfony VM
 ===
-**Allows you to run Symfony full stack application in Linux container while developing from any OS (including Windows)**
+**Build a local Virtual Machine (Docker aware) which allows you to run a Symfony full stack application in Ubuntu container on any OS (including Windows/Mac)**
+
+
+## Requirements
+
+ - [msysgit](https://msysgit.github.io/) (for Windows user only, see ["Get a nice terminal" section below](#how-to))
+ - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
+ - [Docker-machine](https://docs.docker.com/machine/#installation) (needs [version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
 
 
 ## What's inside?
 
-### Dockerfile
-**Read The Fucking `Dockerfile`** (it's easy, I promise)
+### docker-machine-dev(.bat/.sh)
+A simple yet powerful script that use Docker Machine to build a local Docker aware VM without even installing Docker. 
+It's also used to set some useful aliases in the VM (such as`docker-compose` which run Docker Compose in a container).
 
-#### TL;DR
+### Dockerfile
  - Miscellaneous useful tools (`nano`, `vim`, `curl`, `wget`, etc.)
  - Nginx (including a default site configuration for Symfony app)
  - PHP 5.6 with FPM and Composer
@@ -16,87 +24,43 @@ Docker - Symfony / Nginx
  - NodeJS 0.12 with `bower`, `gulp` and `grunt`
 
 ### docker-compose.yml
-This file (using Docker-compose) will help you to build a perfect environment for your Symfony app by running and linking several containers the way you want with a single command. Keep in mind that, this could also be done using many long and boring `docker` commands without the need of `docker-compose` at all... but it's a lot better to maintain a YAML file and just type `docker-compose run --service-ports myapp`
-
-### boot.bat (Windows users only)
-A simple user personal script which set some Docker related useful aliases before starting boot2docker. This kind of script is a must have for all Windows users, because it greatly eases the use of Docker and Docker-compose.
+This file (using Docker-compose) will help you to build a perfect environment for your Symfony app by running and linking several containers the way you want using a single command. 
+Keep in mind that this could also be done using many long `docker` commands without the need of `docker-compose` at all.
 
 
 ## How to use?
 
-### Windows
+ 1. _[Needed once]_ Clone this repository in a new folder at the root of your Symfony application sources (I'd suggest to name the folder `docker`)
 
- 1. Clone this repository at the root of your application sources (feel free to rename the repository folder).
+ 2. _[Needed once]_ Edit `docker-compose.yml` to fit your project needs
 
- 2. Edit `docker-compose.yml` the way you want (you might don't need a MySQL database, or you just want to replace `myapp` with the name of your application).
+ 3. Open a terminal then `cd` to the new folder and type `docker-machine-dev`. If everything worked, after a few seconds you will be given access to the VM where you will be able to run `docker` commands
+ 
+ 4. _[Needed once]_ Now you can "install" `docker-compose` with: 
+`install-docker-compose`
+ 
+ 5. Then, again, `cd` to the new folder in your Symfony project (the VM shared your `C:\Users\` (windows) or `/Users/` (mac) folder as `/c/Users/` or `/Users/` --- see [complete reference here](https://github.com/boot2docker/boot2docker#virtualbox-guest-additions)) 
+ 
+ 6. Build and run the whole Symfony environment with:
+`docker-compose-web` (which is an alias for `docker-compose run --service-ports web`)
 
- 3. Edit `boot.bat` to fit your personal environment (typically, you will want to set a correct path for the `cd-compose` alias and adjust `dcompose-myapp` alias according to your `docker-compose.yml` file if you edited it).
-
- 4. Open a Windows terminal (I recommend to use [Cmder](http://gooseberrycreative.com/cmder/) instead of the default one), then `cd` to the `boot.bat` file and type the 3 following commands:
- `boot`
- `cd-compose`
- `dcompose-myapp` (you may need to type `install-docker-compose` before, if you haven't already a `docker-compose` image available)
-
-
-## Need more?
-Feel free to extend this image or just edit the `docker-compose.yml` file to let other containers join the party.
-The only thing to keep in mind is that it would be best if your whole team use the same image.
+ 7. If everything worked you should be able to see your Symfony application running in your host browser at 192.168.99.100 (you can check if it is the correct IP by running `docker-machine ip dev` in your host terminal)
 
 
-## Never used Docker or Docker-compose before?
-
-### Docker on Windows
-
-#### Get a nice terminal and be able to use Git and many useful UNIX commands _(Optional but strongly recommended)_
+## Get a nice terminal and be able to use Git and many useful UNIX commands on Windows
 
  1. Install `msysgit` http://msysgit.github.io/ (bottom of the page)
 
  2. Install `Cmder` http://gooseberrycreative.com/cmder/ (mini version without msysgit)
 
- 3. Add the following directories at the very beginning of the PATH environment variable (could be different if you chose a different installation path for msysgit and Cmder): 
-`C:\cmder\bin;C:\msysgit\bin;C:\msysgit\mingw\bin;C:\msysgit\cmd;`
+ 3. Add the following directories at the very beginning of the `PATH` environment variable (could be different if you chose a different installation path for msysgit): 
+`C:\msysgit\bin;C:\msysgit\mingw\bin;C:\msysgit\cmd;`
 
- 4. From now on, when I will talk about **Windows terminal**, you will understand **Cmder terminal opened as Administrator**. You can test your new Windows terminal to handle carriage return for Git on Windows:
-`git config --global core.autocrlf true`
+ 4. I'd also recommend to always run `Cmder` as an Administrator (right click => Properties, etc.). 
 
-#### Install Docker
+**ProTips**: One of the many nice things you can do with Cmder is setting persistent aliases such as `alias cd-docker=cd "C:\path\to\my\sf_project\docker"` =). To view and manage your aliases, edit the file located at `C:\cmder_installation_directory\config\aliases`.
 
- 1. Install `Boot2Docker` http://docs.docker.com/installation/windows/ (during installation, uncheck `msysgit` if you followed the previous step)
 
- 2. Initialize Boot2Docker and update the Virtual Machine with the following commands:
-`boot2docker init`
-`boot2docker stop`
-`boot2docker download`
-
-#### Use `docker` (have a working Docker client)
-
- 1. To start the VM (including the Docker daemon):
-`boot2docker start`
-
- 2. To access the VM through SSH:
-`boot2docker ssh`
-
- 3. _(Optional)_ You will notice a warning message about missing environment variables and how to set them using `export`, if you aim to fix this, you will have to enter these commands in your Windows terminal but `export` won't work so you will have to replace `export` commands with `set` commands in order to fix this. Anyway, keep in mind that this is optional (AFAIK) because it will only allow you to use Docker directly in your Windows terminal instead of having to access the VM through SSH.
-
-#### Install Docker-compose
-
- 1. The easiest way to use `docker-compose` on Windows is to run it on it's own container. So first, you will need to build your own image of docker-compose:
-`docker build -t docker-compose github.com/docker/compose`
-
- 
-#### Use `docker-compose` to build our Symfony environment
-
- 1. Now that you have your `docker-compose` image set, each time you will want to use a simple `docker-compose` command, you will have to type instead:
-`docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):$(pwd) -w $(pwd) docker-compose`
-
- So it might be a good idea to set an `alias` for this, I chose the name `dcompose`:
-`alias dcompose='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):$(pwd) -w $(pwd) docker-compose'`
-
- 2. Go to your `docker-compose.yml` file path (keep in mind that `boot2docker` share your Windows directory `C:\\Users` with the VM as `/c/Users`):
- `cd /c/Users/path/to/my/docker/compose/yml/file`
- 
- 3. Try to run `myapp` with `docker-compose`:
- `dcompose run --service-ports myapp`
- 
- 4. After you played a bit with this, you will want **Protips**. Go to **How to use?** main section to really enjoy Docker on Windows.
- 
+## WTF!? You're using a Docker container as a VM!?
+Indeed, I could have split this big image in many smaller images (i.e. PHP5.6 linked with PHP-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple and independent from the host OS. 
+This is meant to be a fast deployable development environment nothing else.

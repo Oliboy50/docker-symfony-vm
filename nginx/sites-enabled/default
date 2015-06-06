@@ -1,7 +1,7 @@
 server {
     listen 80;
     server_name localhost;
-    root /var/www/html/myapp/web;
+    root /var/www/html/web;
 
     location / {
         # try to serve file directly, fallback to app.php
@@ -35,6 +35,6 @@ server {
         # internal;
     }
 
-    error_log /var/log/nginx/myapp_error.log;
-    access_log /var/log/nginx/myapp_access.log;
+    error_log /var/log/nginx/web_error.log;
+    access_log /var/log/nginx/web_access.log;
 }

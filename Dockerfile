@@ -1,11 +1,10 @@
 #
 # Dockerfile for Symfony application development
 #
-# Inspired by Dockerfile Project:
-# https://dockerfile.github.io
-#
 
-# Based on docker official ubuntu image
+
+
+# Based on docker official ubuntu LTS image
 FROM ubuntu:14.04
 
 

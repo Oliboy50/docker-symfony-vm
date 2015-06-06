@@ -1,10 +1,10 @@
-myapp:
+web:
   build: .
   ports:
     - "80:80"
     - "443:443"
   volumes:
-    - ..:/var/www/html/myapp
+    - ..:/var/www/html
   links:
     - mysql
 
@@ -12,6 +12,8 @@ mysql:
   image: mysql
   ports:
     - "3306:3306"
+  volumes:
+    - /var/lib/mysql
   environment:
-    MYSQL_DATABASE: myapp
+    MYSQL_DATABASE: webapp
     MYSQL_ALLOW_EMPTY_PASSWORD: yes

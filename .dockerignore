@@ -2,5 +2,6 @@
 .idea
 LICENSE
 README.md
-boot.bat
+docker-machine-dev.bat
+docker-machine-dev.sh
 docker-compose.yml
