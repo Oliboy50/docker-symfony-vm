@@ -5,7 +5,7 @@ Docker - Symfony VM
 
 ## Requirements
 
- - [msysgit](https://msysgit.github.io/) (for Windows user only, see ["Get a nice terminal" section below](#get-a-nice-terminal-and-be-able-to-use-git-and-many-useful-unix-commands-on-windows))
+ - [msysgit](https://msysgit.github.io/) **for Windows user only** (see ["Get a nice terminal"](#get-a-nice-terminal-and-be-able-to-use-git-and-many-useful-unix-commands-on-windows) section below if you don't know how to do)
  - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
  - [Docker-machine](https://docs.docker.com/machine/#installation) (needs [version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
 
@@ -33,21 +33,33 @@ Keep in mind that this could also be done using many long `docker` commands with
 
 ## How to use?
 
- 1. _[Needed once]_ Clone this repository in a new folder at the root of your Symfony application sources (I'd suggest to name the folder `docker`)
+### First time
 
- 2. _[Needed once]_ Edit `docker-compose.yml` to fit your project needs
+ 1. Clone this repository in a new folder (let's name it `docker`) **at the root of your Symfony application sources**, with:
+`git clone https://github.com/Oliboy50/docker-symfony-vm.git docker`
 
- 3. Open a terminal then `cd` to the new folder and type `docker-machine-dev`. If everything worked, after a few seconds you will be given access to the VM where you will be able to run `docker` commands
- 
- 4. _[Needed once]_ Now you can "install" `docker-compose` with: 
+ 2. Go to the new folder `cd docker` and type `docker-machine-dev`
+If you followed the [Requirements](#requirements), after a few seconds you will be given access to the VM where you will be able to run `docker` commands
+
+ 3. Now that you are in your VM, you can "install" `docker-compose` with: 
 `install-docker-compose`
  
- 5. Then, again, `cd` to the new folder in your Symfony project (the VM shared your `C:\Users\` (windows) or `/Users/` (mac) folder as `/c/Users/` or `/Users/` --- see [complete reference here](https://github.com/boot2docker/boot2docker#virtualbox-guest-additions)) 
+ 4. Then, again, `cd` to the new folder in your Symfony project (the VM shared your `C:\Users\` (windows) or `/Users/` (mac) folder as `/c/Users/` or `/Users/` --- see [complete reference here](https://github.com/boot2docker/boot2docker#virtualbox-guest-additions)) 
  
- 6. Build and run the whole Symfony environment with:
-`docker-compose-web` (which is an alias for `docker-compose run --service-ports web`)
+ 5. Build and run the whole Symfony environment with:
+`docker-compose-web` 
+(this is just an alias for `docker-compose run --service-ports web`)
 
- 7. If everything worked you should be able to see your Symfony application running in your host browser at 192.168.99.100 (you can check if it is the correct IP by running `docker-machine ip dev` in your host terminal)
+ 6. If everything worked you should be able to see your Symfony application running in your host browser at 192.168.99.100 (you can check if it is the correct IP by running `docker-machine ip dev` in your host terminal)
+
+### Second time and more
+
+    # Host terminal
+    cd C:\Users\mySymfonyApp\docker
+    docker-machine-dev
+    # VM terminal
+    cd /c/Users/mySymfonyApp/docker
+    docker-compose-web
 
 
 ## Get a nice terminal and be able to use Git and many useful UNIX commands on Windows

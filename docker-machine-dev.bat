@@ -19,8 +19,8 @@ REM
 REM INDEPENDENT ALIASES
 REM
 
-REM alias drm-stopped='docker rm $(docker ps -a -q)'
-docker-machine ssh dev "echo \"alias drm-stopped='docker rm \$(docker ps -a -q)'\" >> ~/.ashrc"
+REM alias drm-stop='docker rm $(docker ps -a -q)'
+docker-machine ssh dev "echo \"alias drm-stop='docker rm \$(docker ps -a -q)'\" >> ~/.ashrc"
 
 REM alias drmi-notag='docker rmi $(docker images -q --filter "dangling=true")'
 docker-machine ssh dev "echo \"alias drmi-notag='docker rmi \$(docker images -q --filter \"dangling=true\")'\" >> ~/.ashrc"

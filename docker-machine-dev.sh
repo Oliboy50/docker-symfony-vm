@@ -16,8 +16,8 @@ eval "$(docker-machine env dev)"
 # INDEPENDENT ALIASES
 #
 
-# alias drm-stopped='docker rm $(docker ps -a -q)'
-docker-machine ssh dev "echo \"alias drm-stopped='docker rm \$(docker ps -a -q)'\" >> ~/.ashrc"
+# alias drm-stop='docker rm $(docker ps -a -q)'
+docker-machine ssh dev "echo \"alias drm-stop='docker rm \$(docker ps -a -q)'\" >> ~/.ashrc"
 
 # alias drmi-notag='docker rmi $(docker images -q --filter "dangling=true")'
 docker-machine ssh dev "echo \"alias drmi-notag='docker rmi \$(docker images -q --filter \"dangling=true\")'\" >> ~/.ashrc"
