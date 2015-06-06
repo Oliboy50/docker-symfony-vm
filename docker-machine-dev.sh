@@ -2,7 +2,7 @@
 set -e
 
 # create machine if not already exist, then start it
-docker-machine create --driver="virtualbox" dev
+docker-machine create --driver="virtualbox" --virtualbox-memory="2048" dev
 docker-machine start dev
 
 # set environment variables for this machine

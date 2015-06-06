@@ -1,7 +1,7 @@
 @echo off
 
 REM create machine if not already exist, then start it
-docker-machine create --driver="virtualbox" dev
+docker-machine create --driver="virtualbox" --virtualbox-memory="2048" dev
 docker-machine start dev
 
 REM set environment variables for this machine
