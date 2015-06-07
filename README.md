@@ -52,6 +52,8 @@ If you followed the [Requirements](#requirements), after a few seconds you will 
 
  6. If everything worked you should be able to see your Symfony application running in your host browser at 192.168.99.100 (you can check if it is the correct IP by running `docker-machine ip dev` in your host terminal)
 
+When you want to stop coding, `exit` your VM then stop it with `docker-machine stop dev`.
+
 ### Second time and more
 
     # Host terminal
@@ -79,3 +81,4 @@ If you followed the [Requirements](#requirements), after a few seconds you will 
 ## WTF!? You're using a Docker container as a VM!?
 Indeed, I could have split this big image in many smaller images (i.e. PHP5.6 linked with PHP-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple and independent from the host OS. 
 This is meant to be a fast deployable development environment nothing else.
+
