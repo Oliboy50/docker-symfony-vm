@@ -7,7 +7,7 @@ Docker - Symfony VM
 
  - [msysgit](https://msysgit.github.io/) **for Windows user only** (see ["Get a nice terminal"](#get-a-nice-terminal-and-be-able-to-use-git-and-many-useful-unix-commands-on-windows) section below if you don't know how to do)
  - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
- - [Docker-machine](https://docs.docker.com/machine/#installation) (needs [version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
+ - [Docker-machine](https://docs.docker.com/machine/#installation) ([version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
 
 
 ## What's inside?
