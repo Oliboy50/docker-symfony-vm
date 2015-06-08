@@ -56,7 +56,7 @@ RUN \
   apt-get install -y ruby ruby-dev ruby-bundler && \
   rm -rf /var/lib/apt/lists/*
 
-# Install NodeJS/NPM and globally install some dependances (Bower, Gulp, etc.)
+# Install NodeJS/NPM and globally install some dependencies (Bower, Gulp, etc.)
 RUN \
   curl -sL https://deb.nodesource.com/setup | bash - && \
   apt-get install -y nodejs && \
@@ -85,11 +85,12 @@ WORKDIR /var/www/html
 
 
 
-# Set the script to use as entrypoint for the container
+# Set the script to use as entry point for the container
 COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 
 
-# Set the default 'docker run' command (will be use if no commands are explicitely passed by user)
+# Set the default 'docker run' command (will be use if no commands are explicitly passed by user)
 CMD ["/bin/bash"]
