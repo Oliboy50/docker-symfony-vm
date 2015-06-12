@@ -82,3 +82,16 @@ When you want to stop coding, `exit` your VM then stop it with `docker-machine s
 Indeed, I could have split this big image in many smaller images (i.e. PHP5.6 linked with PHP-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple and independent from the host OS. 
 This is meant to be a fast deployable development environment nothing else.
 
+
+## Troubleshooting
+
+### `npm install` fails in my project
+This issue comes from your application shared folders, `vboxsf` seems to be not powerful enough to handle so many files.
+There are currently 2 workarounds for this kind of issue:
+
+- In your application container, copy the `package.json` file to another (not shared) directory. Run `npm install` there. Then copy back the `node_modules` directory to the root of you application.
+
+or
+
+- Run `npm install` on your host machine (it requires you to have `npm` already installed on your host of course). 
+
