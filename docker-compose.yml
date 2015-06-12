@@ -11,7 +11,7 @@ web:
 mysql:
   image: mysql
   ports:
-    - "3306:3306"
+    - "3306"
   volumes:
     - /var/lib/mysql
   environment:
