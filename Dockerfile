@@ -70,6 +70,12 @@ COPY nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 
 
 
+# Allow www-data to use "sudo" to run commands "as root"
+RUN \
+  echo "www-data ALL=(ALL:ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
+
+
+
 # Expose ports
 EXPOSE 80 443
 
