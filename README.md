@@ -17,11 +17,12 @@ A simple yet powerful script that use Docker Machine to build a local Docker awa
 It's also used to set some useful aliases in the VM (such as`docker-compose` which run Docker Compose in a container).
 
 ### Dockerfile
- - Miscellaneous useful tools (`nano`, `vim`, `curl`, `wget`, etc.)
+ - Miscellaneous useful tools (`vim`, `curl`, `wget`, etc.)
  - Nginx (including a default site configuration for Symfony app)
  - PHP 5.6 with FPM and Composer
- - Ruby and Python (could be needed to use some dependencies)
- - NodeJS 0.12 with `bower`, `gulp` and `grunt`
+ - Ruby with `sass`, `less` and `capistrano`
+ - Python (could be needed to build some npm dependencies)
+ - NodeJS 4 with `nodemon`, `pm2`, `bower`, `gulp` and `grunt`
 
 ### docker-entrypoint.sh
 This file is the default ENTRYPOINT of the image. It will be executed each time you run this container. This is where you should put all your project specific stuffs that could help you building a perfect Symfony application (e.g. run services, run a Makefile, etc.).

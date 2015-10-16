@@ -3,10 +3,14 @@ web:
   user: www-data
   ports:
     - "80:80"
+    - "443:443"
   volumes:
     - ..:/var/www/html
+#  environment:
+#    TZ: Europe/Paris # if your Timezone configuration is not UTC
   links:
     - mysql
+#    - redis
 
 mysql:
   image: mysql
@@ -17,3 +21,9 @@ mysql:
   environment:
     MYSQL_DATABASE: webapp
     MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#    TZ: Europe/Paris # if your Timezone configuration is not UTC
+
+#redis:
+#  image: redis
+#  ports:
+#    - "6379"
