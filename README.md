@@ -7,18 +7,18 @@ Docker - Symfony VM
 
  - [msysgit](https://msysgit.github.io/) **for Windows user only** (see ["Get a nice terminal"](#get-a-nice-terminal-and-be-able-to-use-git-and-many-useful-unix-commands-on-windows) section below if you don't know how to do)
  - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
- - [Docker-machine](https://docs.docker.com/machine/#installation) ([version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
+ - [Docker Machine](https://docs.docker.com/machine/#installation) ([version 0.3.0+](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
 
 
 ## What's inside?
 
 ### docker-machine-dev(.bat/.sh)
-A simple yet powerful script that use Docker Machine to build a local Docker aware VM without even installing Docker. 
-It's also used to set some useful aliases in the VM (such as`docker-compose` which run Docker Compose in a container).
+A simple yet powerful script which uses Docker Machine to build a local Docker aware VM without even installing Docker. 
+It's also used to set some useful aliases in the VM (such as`docker-compose` which run Docker Compose in a container), so be free to set your own aliases there.
 
 ### Dockerfile
- - Miscellaneous useful tools (`vim`, `curl`, `wget`, etc.)
- - Nginx (including a default site configuration for Symfony app)
+ - Miscellaneous useful packages (`make`, `vim`, `nano`, `curl`, `wget`, `git`)
+ - Nginx with a default site configuration for Symfony app (including HTTPS support)
  - PHP 5.6 with FPM and Composer
  - Ruby with `sass`, `less` and `capistrano`
  - Python (could be needed to build some npm dependencies)
@@ -28,7 +28,7 @@ It's also used to set some useful aliases in the VM (such as`docker-compose` whi
 This file is the default ENTRYPOINT of the image. It will be executed each time you run this container. This is where you should put all your project specific stuffs that could help you building a perfect Symfony application (e.g. run services, run a Makefile, etc.).
 
 ### docker-compose.yml
-This file (using Docker-compose) will help you to build a perfect environment for your Symfony app by running and linking several containers the way you want using a single command. 
+This file (using Docker Compose) will help you to build a perfect environment for your Symfony app by running and linking several containers the way you want using a single command. 
 Keep in mind that this could also be done using many long `docker` commands without the need of `docker-compose` at all.
 
 
@@ -80,7 +80,7 @@ When you want to stop coding, `exit` your VM then stop it with `docker-machine s
 
 
 ## WTF!? You're using a Docker container as a VM!?
-Indeed, I could have split this big image in many smaller images (i.e. PHP5.6 linked with PHP-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple and independent from the host OS. 
+Indeed, I could have split this big image in many smaller images (i.e. PHP5.6 linked with PHP-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple. 
 This is meant to be a fast deployable development environment nothing else.
 
 
@@ -90,7 +90,7 @@ This is meant to be a fast deployable development environment nothing else.
 This issue comes from your application shared folders, `vboxsf` seems to be not powerful enough to handle so many files.
 There are currently 2 workarounds for this kind of issue:
 
-- In your application container, copy the `package.json` file to another (not shared) directory. Run `npm install` there. Then copy back the `node_modules` directory to the root of you application.
+- (Recommended) In your application container, copy the `package.json` file to another (not shared) directory. Run `npm install` there. Then copy back the `node_modules` directory to the root of you application.
 
 or
 
