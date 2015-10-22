@@ -17,7 +17,7 @@ A simple yet powerful script which uses Docker Machine to build a local Docker a
 It's also used to set some useful aliases in the VM (such as`docker-compose` which run Docker Compose in a container), so be free to set your own aliases there.
 
 ### Dockerfile
- - Miscellaneous useful packages (`make`, `vim`, `nano`, `curl`, `wget`, `git`)
+ - Miscellaneous useful packages (`make`, `vim`, `nano`, `curl`, `wget`, `git` and `software-properties-common` to be able to add PPA)
  - Nginx with a default site configuration for Symfony app (including HTTPS support)
  - PHP 5.6 with FPM and Composer
  - Ruby with `sass`, `less` and `capistrano`

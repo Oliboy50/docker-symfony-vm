@@ -31,7 +31,8 @@ RUN \
     vim \
     curl \
     git \
-    wget
+    wget \
+    software-properties-common
 
 # Install Nginx
 RUN \
@@ -44,7 +45,7 @@ RUN \
 RUN \
   add-apt-repository -y ppa:ondrej/php5-5.6 && \
   apt-get update && \
-  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php-apc php5-xdebug
+  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php5-xdebug
 
 # Install Composer
 RUN \
