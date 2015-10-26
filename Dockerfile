@@ -52,9 +52,11 @@ RUN \
   curl -sS https://getcomposer.org/installer | php && \
   mv composer.phar /usr/local/bin/composer
 
-# Install Ruby
+# Install Ruby (with net-ssh version 2.9.2 to avoid "capistrano requires Ruby >= 2.0" issue)
 RUN \
   apt-get install -y ruby ruby-bundler && \
+  gem install -n /usr/bin/ \
+    net-ssh -v 2.9.2 && \
   gem install -n /usr/bin/ \
     sass \
     less \
