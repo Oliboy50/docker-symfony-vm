@@ -25,14 +25,26 @@ RUN \
 
 # Install Ubuntu miscellaneous packages
 RUN \
-  apt-get install -y \
-    make \
+  apt-get install -y --force-yes \
+    libreadline-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libyaml-dev \
+    zlib1g-dev \
+    libncurses5-dev \
+    libffi-dev \
+    libgdbm-dev \
+    build-essential \
+    software-properties-common \
+    python-software-properties \
     nano \
     vim \
     curl \
+    libcurl4-openssl-dev \
     git \
     wget \
-    software-properties-common
+    tar
 
 # Install Nginx
 RUN \
@@ -41,31 +53,15 @@ RUN \
   apt-get install -y nginx && \
   chown -R www-data:www-data /var/lib/nginx
 
-# Install PHP and extensions
+# Install PHP, some extensions and Composer
 RUN \
   add-apt-repository -y ppa:ondrej/php5-5.6 && \
   apt-get update && \
-  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php5-xdebug
-
-# Install Composer
-RUN \
+  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php5-xdebug && \
   curl -sS https://getcomposer.org/installer | php && \
   mv composer.phar /usr/local/bin/composer
 
-# Install Ruby
-RUN \
-  apt-get install -y ruby ruby-bundler && \
-  gem install -n /usr/bin/ \
-    sass \
-    less \
-    capistrano
-
-# Install Python
-RUN \
-  apt-get update && \
-  apt-get install -y python python-pip python-virtualenv
-
-# Install NodeJS/NPM and globally install some dependencies (Nodemon, PM2, Bower, Gulp, etc.)
+# Install NodeJS/NPM and globally install some packages (Nodemon, PM2, Bower, Gulp, etc.)
 RUN \
   curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
   apt-get install -y nodejs && \
@@ -77,12 +73,17 @@ RUN \
     grunt-cli \
     mocha
 
-
-
-# Clean apt-get (it's worth nothing)
+# Install Ruby 2.2.3 and globally install some packages (bundler, capistrano, sass, less)
 RUN \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  curl -O http://ftp.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz && \
+  tar -zxvf ruby-2.2.3.tar.gz && \
+  cd ruby-2.2.3 && ./configure --enable-shared && make && make install && \
+  cd .. && rm -r ruby-2.2.3 ruby-2.2.3.tar.gz && \
+  gem install -n /usr/bin/ \
+    bundler \
+    sass \
+    less \
+    capistrano
 
 
 
