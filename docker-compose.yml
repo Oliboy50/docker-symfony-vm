@@ -6,6 +6,7 @@ web:
     - "443:443"
   volumes:
     - ..:/var/www/html
+#    - /path/to/my/.ssh:/var/www/.ssh
 #  environment:
 #    TZ: Europe/Paris # if your Timezone configuration is not UTC
   links:
@@ -15,7 +16,7 @@ web:
 mysql:
   image: mysql
   ports:
-    - "3306"
+    - "3306:3306"
   volumes:
     - /var/lib/mysql
   environment:

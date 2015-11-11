@@ -1,6 +1,8 @@
 #
 # Dockerfile for Symfony application development
 #
+# Do not use this in production!
+#
 # https://github.com/Oliboy50/docker-symfony-vm
 #
 
@@ -26,15 +28,6 @@ RUN \
 # Install Ubuntu miscellaneous packages
 RUN \
   apt-get install -y --force-yes \
-    libreadline-dev \
-    libssl-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    libyaml-dev \
-    zlib1g-dev \
-    libncurses5-dev \
-    libffi-dev \
-    libgdbm-dev \
     build-essential \
     software-properties-common \
     python-software-properties \
@@ -53,11 +46,16 @@ RUN \
   apt-get install -y nginx && \
   chown -R www-data:www-data /var/lib/nginx
 
-# Install PHP, some extensions and Composer
+# Install MySQL client
+RUN \
+  apt-get install -y mysql-client
+
+# Install PHP, some extensions (and make CLI use the FPM configuration) and Composer
 RUN \
   add-apt-repository -y ppa:ondrej/php5-5.6 && \
   apt-get update && \
-  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php5-xdebug && \
+  apt-get install -y --force-yes php5 php5-fpm php5-mysql php5-curl php5-xdebug php5-intl && \
+  cd /etc/php5/cli && mv php.ini php.ini.old && ln -s /etc/php5/fpm/php.ini && mv conf.d conf.d.old && ln -s /etc/php5/fpm/conf.d && cd / && \
   curl -sS https://getcomposer.org/installer | php && \
   mv composer.phar /usr/local/bin/composer
 
@@ -75,6 +73,17 @@ RUN \
 
 # Install Ruby 2.2.3 and globally install some packages (bundler, capistrano, sass, less)
 RUN \
+  apt-get install -y --force-yes \
+    libreadline-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libyaml-dev \
+    zlib1g-dev \
+    libncurses5-dev \
+    libffi-dev \
+    libgdbm-dev \
+    libcurl4-openssl-dev && \
   curl -O http://ftp.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz && \
   tar -zxvf ruby-2.2.3.tar.gz && \
   cd ruby-2.2.3 && ./configure --enable-shared && make && make install && \
@@ -100,8 +109,14 @@ RUN \
 
 
 # Configure Nginx
+COPY nginx/fastcgi_params /etc/nginx/fastcgi_params
 COPY nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 COPY nginx/ssl/ /etc/nginx/ssl/
+
+
+
+# Configure PHP
+COPY php/php.ini /etc/php5/fpm/php.ini
 
 
 
@@ -110,8 +125,8 @@ EXPOSE 80 443
 
 
 
-# Define mountable directories
-VOLUME ["/var/www/html"]
+# Define mountable directories (project sources and ssh keys if needed)
+VOLUME ["/var/www/html", "/var/www/.ssh"]
 
 
 
