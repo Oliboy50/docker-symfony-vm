@@ -28,6 +28,15 @@ RUN \
 # Install Ubuntu miscellaneous packages
 RUN \
   apt-get install -y --force-yes \
+    libreadline-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libyaml-dev \
+    zlib1g-dev \
+    libncurses5-dev \
+    libffi-dev \
+    libgdbm-dev \
     build-essential \
     software-properties-common \
     python-software-properties \
@@ -73,20 +82,9 @@ RUN \
 
 # Install Ruby 2.2.3 and globally install some packages (bundler, capistrano, sass, less)
 RUN \
-  apt-get install -y --force-yes \
-    libreadline-dev \
-    libssl-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    libyaml-dev \
-    zlib1g-dev \
-    libncurses5-dev \
-    libffi-dev \
-    libgdbm-dev \
-    libcurl4-openssl-dev && \
   curl -O http://ftp.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz && \
   tar -zxvf ruby-2.2.3.tar.gz && \
-  cd ruby-2.2.3 && ./configure --enable-shared && make && make install && \
+  cd ruby-2.2.3 && ./configure && make && make install && \
   cd .. && rm -r ruby-2.2.3 ruby-2.2.3.tar.gz && \
   gem install -n /usr/bin/ \
     bundler \
