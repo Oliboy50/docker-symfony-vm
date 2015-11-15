@@ -5,9 +5,9 @@ Docker - Symfony VM
 
 ## Requirements
 
- - [msysgit](https://msysgit.github.io/) **for Windows user only** (see ["Get a nice terminal"](#get-a-nice-terminal-and-use-git-and-many-useful-unix-commands-on-windows) section below if you don't know how to do)
+ - [msysgit](https://git-for-windows.github.io/) **for Windows user only** (see ["Get a nice terminal"](#get-a-nice-terminal-and-use-git-and-many-useful-unix-commands-on-windows) section below if you don't know how to do)
  - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
- - [Docker Machine](https://docs.docker.com/machine/#installation) ([version >=0.3.0](https://github.com/docker/machine/releases)) => just an executable to rename `docker-machine` and to move somewhere in your `PATH`
+ - [Docker Machine](https://github.com/docker/machine/releases) => `docker-machine(.exe)` (and `docker-machine-driver-virtualbox(.exe)` since 0.5.0) to move somewhere in your `PATH`
 
 
 ## What's inside?
@@ -65,19 +65,15 @@ When you want to stop coding, `exit` your VM then stop it with `docker-machine s
 
  1. Install `Cmder` http://cmder.net/ (full version with msysgit)
 
- 2. Add the following directories at the very beginning of the `PATH` environment variable: 
-`C:\cmder_installation_directory\vendor\msysgit\bin;`
-
- 3. I'd also recommend to always run `Cmder` as an Administrator (right click => Properties, etc.)
+ 2. Configure it to always be ran as an Administrator (right click => Properties, etc.)
  
- 4. You may have to define default terminal as `{cmd}` instead of `{PowerShell}`
+ 3. You may have to define its default terminal type as `{cmd}` instead of `{PowerShell}` (because you may experience issues if you use `{PowerShell}` terminal)
 
-**ProTips**: One of the many nice things you can do with Cmder is setting persistent aliases such as `alias cd-project=cd "C:\path\to\my\sf_project\docker"` =). To view and manage your aliases, edit the file located at `C:\cmder_installation_directory\config\aliases`.
+**ProTips**: 
 
+- You can set persistent aliases such as `alias cd-project=cd "C:\Users\mySymfonyApp\docker"` =). To view and manage your aliases, edit the file located at `C:\cmder_installation_directory\config\aliases`.
 
-## WTF!? You're using a Docker container as a VM!?
-Indeed, I could have split this big image in many smaller images (i.e. PHP5.6-FPM linked with NGINX linked with NodeJS linked with Ruby, etc.) but I just wanted to keep it really simple. 
-This is meant to be a fast deployable development environment nothing else.
+- You can dump executable files (such as `docker-machine.exe`) in `C:\cmder_installation_directory\bin` then those executables will be automatically accessible in your terminal (i.e. `docker-machine`).
 
 
 ## Troubleshooting
@@ -94,10 +90,11 @@ or
 
 ### Starting VM hanging / VirtualBox warning when running `docker-machine-dev`
 This issue comes from the 5.x versions of VirtualBox.
-There are currently 2 workarounds for this kind of issue:
+First, try to update VirtualBox (I don't have this issue on Windows 10 / Docker Machine 0.5.0 / VirtualBox 5.0.10).
+If you still have this issue with the latest VirtualBox, there are currently 2 workarounds:
 
 - (Recommended) Each time you run `docker-machine-dev`, you'll have to close the VirtualBox warning window.
 
 or
 
-- Installed the last 4.x version of VirtualBox. (Personnaly, I use VirtualBox 4.3.26r98988 which works just fine.)
+- Installed the last 4.x version of VirtualBox. (I used VirtualBox 4.3.26 when I used Windows 8.1 with Docker Machine 0.3.0)
