@@ -1,5 +1,8 @@
 Docker - Symfony VM
 ===
+
+:warning: This repo will be deprecated as soon as [Docker for Mac/Windows](https://blog.docker.com/2016/03/docker-for-mac-windows-beta/) will be officially released.
+
 **Build a local Virtual Machine (Docker aware) which allows you to run a Symfony full stack application in Ubuntu container on any OS (including Windows/Mac)**
 
 
